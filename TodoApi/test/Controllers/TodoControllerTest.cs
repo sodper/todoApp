@@ -1,9 +1,13 @@
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Newtonsoft.Json;
+using TodoApi.Models;
 using Xunit;
+using FluentAssertions;
 
 namespace TodoApi.Test
 {
@@ -36,15 +40,16 @@ namespace TodoApi.Test
             var response = await _client.GetAsync("api/todo/1");
             response.EnsureSuccessStatusCode();
 
-            var actual = await response.Content.ReadAsStringAsync();
-            var expected = @"{
-  ""id"": 1,
-  ""description"": ""Todo1"",
-  ""start"": ""2017-02-28T00:00:00"",
-  ""due"": ""2017-03-10T00:00:00""
-}";
+            var json = await response.Content.ReadAsStringAsync();
+            var actual = JsonConvert.DeserializeObject<Todo>(json);
+            var expected = new Todo(){
+                Id = 1,
+                Description = "Todo1",
+                Start = new DateTime(2017, 2, 28),
+                Due = new DateTime(2017, 3, 10)
+            };
 
-            Assert.Equal(expected, actual);
+            actual.ShouldBeEquivalentTo(expected);
         }
 
         [Fact]
