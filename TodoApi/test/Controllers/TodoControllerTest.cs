@@ -29,5 +29,22 @@ namespace TodoApi.Test
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public async Task Get_SpecificTodo()
+        {
+            var response = await _client.GetAsync("api/todo/1");
+            response.EnsureSuccessStatusCode();
+
+            var actual = await response.Content.ReadAsStringAsync();
+            var expected = @"{
+    ""id"": 1,
+    ""description"": ""Todo1"",
+    ""start"": ""2017-02-28"",
+    ""due"": ""2017-03-10""
+}";
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
