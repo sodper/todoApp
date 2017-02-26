@@ -31,7 +31,7 @@ namespace TodoApi.Test
         }
 
         [Fact]
-        public async Task Get_SpecificTodo()
+        public async Task Get_ExistingTodo()
         {
             var response = await _client.GetAsync("api/todo/1");
             response.EnsureSuccessStatusCode();
@@ -43,6 +43,18 @@ namespace TodoApi.Test
   ""start"": ""2017-02-28T00:00:00"",
   ""due"": ""2017-03-10T00:00:00""
 }";
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public async Task Get_NonExistingTodo_RerturnsNotFound()
+        {
+            var response = await _client.GetAsync("api/todo/2");
+            response.EnsureSuccessStatusCode();
+
+            var actual = response.StatusCode;
+            var expected = HttpStatusCode.NotFound;
 
             Assert.Equal(expected, actual);
         }
