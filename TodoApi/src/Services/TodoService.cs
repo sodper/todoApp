@@ -13,7 +13,7 @@ namespace TodoApi.Services
 
         public Todo Get(int id)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public List<Todo> GetAll()
