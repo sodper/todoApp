@@ -15,7 +15,7 @@ namespace TodoApi.Controllers
             return new string[]{ };
         }
 
-        // GET api/values/5
+        // GET api/todo/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -30,6 +30,15 @@ namespace TodoApi.Controllers
             else {
                 return NotFound();
             }
+        }
+
+        // POST api/todo
+        [HttpPost]
+        public Todo Post(Todo todo)
+        {
+            todo.Id = 1;
+
+            return todo;
         }
     }
 }
