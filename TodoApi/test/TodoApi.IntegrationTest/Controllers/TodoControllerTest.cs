@@ -9,7 +9,7 @@ using TodoApi.Models;
 using Xunit;
 using FluentAssertions;
 
-namespace TodoApi.Test
+namespace TodoApi.IntegrationTest.Controllers
 {
     public class TodoControllerTest
     {

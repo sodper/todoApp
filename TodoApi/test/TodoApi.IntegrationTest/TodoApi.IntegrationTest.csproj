@@ -19,7 +19,6 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0-beta5-build1225" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\TodoApi.csproj" />
-    <Content Include="appsettings.json" />
+    <ProjectReference Include="..\..\src\TodoApi.csproj" />
   </ItemGroup>
 </Project>
