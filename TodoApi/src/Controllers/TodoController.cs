@@ -17,14 +17,19 @@ namespace TodoApi.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public Todo Get(int id)
+        public IActionResult Get(int id)
         {
-            return new Todo(){
-                Id = 1,
-                Description = "Todo1",
-                Start = new DateTime(2017, 2, 28),
-                Due = new DateTime(2017, 3, 10)
-            };
+            if (id == 1) {
+                return new ObjectResult(new Todo(){
+                    Id = 1,
+                    Description = "Todo1",
+                    Start = new DateTime(2017, 2, 28),
+                    Due = new DateTime(2017, 3, 10)
+                });    
+            }
+            else {
+                return NotFound();
+            }
         }
     }
 }

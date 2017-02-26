@@ -51,7 +51,6 @@ namespace TodoApi.Test
         public async Task Get_NonExistingTodo_RerturnsNotFound()
         {
             var response = await _client.GetAsync("api/todo/2");
-            response.EnsureSuccessStatusCode();
 
             var actual = response.StatusCode;
             var expected = HttpStatusCode.NotFound;
