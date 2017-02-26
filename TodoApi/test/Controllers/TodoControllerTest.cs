@@ -42,7 +42,7 @@ namespace TodoApi.Test
 
             var json = await response.Content.ReadAsStringAsync();
             var actual = JsonConvert.DeserializeObject<Todo>(json);
-            var expected = new Todo(){
+            var expected = new Todo {
                 Id = 1,
                 Description = "Todo1",
                 Start = new DateTime(2017, 2, 28),
@@ -61,6 +61,25 @@ namespace TodoApi.Test
             var expected = HttpStatusCode.NotFound;
 
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public async Task Create_ReturnsTodoWithId()
+        {
+            var newTodo = new Todo 
+            {
+                Description = "New todo",
+                Start = new DateTime(2017, 4, 1),
+                Due = new DateTime(2017, 4, 2)
+            };
+            var content = new StringContent(JsonConvert.SerializeObject(newTodo));
+            var response = await _client.PostAsync("api/todo", content);
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+            var createdTodo = JsonConvert.DeserializeObject<Todo>(json);
+
+            createdTodo.Id.Should().BePositive();
         }
     }
 }
