@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using TodoApi.Services;
 
 namespace TodoApi
 {
@@ -36,6 +37,8 @@ namespace TodoApi
                         options.SerializerSettings.ContractResolver =
                             new CamelCasePropertyNamesContractResolver();
                     });
+            
+            services.AddScoped<ITodoService, TodoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
