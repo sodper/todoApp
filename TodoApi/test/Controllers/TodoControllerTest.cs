@@ -38,10 +38,10 @@ namespace TodoApi.Test
 
             var actual = await response.Content.ReadAsStringAsync();
             var expected = @"{
-    ""id"": 1,
-    ""description"": ""Todo1"",
-    ""start"": ""2017-02-28"",
-    ""due"": ""2017-03-10""
+  ""id"": 1,
+  ""description"": ""Todo1"",
+  ""start"": ""2017-02-28T00:00:00"",
+  ""due"": ""2017-03-10T00:00:00""
 }";
 
             Assert.Equal(expected, actual);
