@@ -48,7 +48,7 @@ namespace TodoApi.Test
         }
 
         [Fact]
-        public async Task Get_NonExistingTodo_RerturnsNotFound()
+        public async Task Get_NonExistingTodo_ReturnsNotFound()
         {
             var response = await _client.GetAsync("api/todo/2");
 
