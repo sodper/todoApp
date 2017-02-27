@@ -32,7 +32,7 @@ namespace TodoApi.Services
             return _db.Save(todo);
         }
 
-        public void Update(Todo todo)
+        public bool Update(Todo todo)
         {
             throw new NotImplementedException();
         }

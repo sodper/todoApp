@@ -91,7 +91,17 @@ namespace TodoApi.UnitTest.Services
             mockDb.Setup(db => db.Save(EXISTING_TODO)).Returns(EXISTING_ID);
             var service = new TodoService(mockDb.Object);
 
-            service.Save(EXISTING_TODO).Should().Match(EXISTING_ID);
+            service.Save(EXISTING_TODO).Should().Be(EXISTING_ID);
+        }
+
+        [Fact]
+        public void Update_ExistingTodo_ReturnsTrue()
+        {
+            var mockDb = new Mock<IDatabase>();
+            mockDb.Setup(db => db.Update(EXISTING_TODO)).Returns(true);
+            var service = new TodoService(mockDb.Object);
+
+            service.Update(EXISTING_TODO).Should().BeTrue();
         }
     }
 }

@@ -9,6 +9,6 @@ namespace TodoApi.Services
         Todo Get(string id);
         void Delete(string id);
         string Save(Todo todo);
-        void Update(Todo todo);
+        bool Update(Todo todo);
     }
 }
