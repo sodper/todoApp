@@ -4,15 +4,15 @@ using TodoApi.Models;
 using TodoApi.Services;
 using Xunit;
 using Moq;
+using System.Collections.Generic;
 
 namespace TodoApi.UnitTest.Services
 {
     public class TodoServiceTest
     {
-        private TodoService _service;
         private const string NULL_ID = "123";
         private const string EXISTING_ID = "123";
-        private Todo _existingTodo = new Todo
+        private Todo EXISTING_TODO = new Todo
             {
                 Id = 1,
                 Description = "Todo1",
@@ -22,23 +22,36 @@ namespace TodoApi.UnitTest.Services
 
         public TodoServiceTest()
         {
-            var mockDb = new Mock<IDatabase>();
-            mockDb.Setup(db => db.Get(NULL_ID)).Returns((Todo)null);          
-            mockDb.Setup(db => db.Get(EXISTING_ID)).Returns(_existingTodo);          
-
-            _service = new TodoService(mockDb.Object);
         }
 
         [Fact]
         public void Get_NonExistingTodo_ReturnsNull()
         {
-            _service.Get(NULL_ID).Should().BeNull();
+            var mockDb = new Mock<IDatabase>();
+            mockDb.Setup(db => db.Get(NULL_ID)).Returns((Todo)null);          
+            var service = new TodoService(mockDb.Object);
+
+            service.Get(NULL_ID).Should().BeNull();
         }
 
         [Fact]
         public void Get_ExistingTodo()
         {
-            _service.Get(EXISTING_ID).Should().ShouldBeEquivalentTo(_existingTodo);
+            var mockDb = new Mock<IDatabase>();
+            mockDb.Setup(db => db.Get(EXISTING_ID)).Returns(EXISTING_TODO);
+            var service = new TodoService(mockDb.Object);
+
+            service.Get(EXISTING_ID).ShouldBeEquivalentTo(EXISTING_TODO);
+        }
+
+        [Fact]
+        public void GetAll_NoTodos_ReturnsEmptyList()
+        {
+            var mockDb = new Mock<IDatabase>();
+            mockDb.Setup(db => db.GetAll()).Returns(new List<Todo>());        
+            var service = new TodoService(mockDb.Object);
+
+            service.GetAll().Should().BeEmpty();
         }
     }
 }

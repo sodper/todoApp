@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using LiteDB;
 using Microsoft.AspNetCore.Hosting;
 using TodoApi.Models;
@@ -31,7 +32,11 @@ namespace TodoApi.Services
 
         public List<Todo> GetAll()
         {
-            throw new NotImplementedException();
+            using(var db = new LiteDatabase(_dbPath))
+            {
+                var collection = db.GetCollection<Todo>("todos");
+                return collection.FindAll().ToList();
+            }
         }
 
         public int Save(Todo todo)
