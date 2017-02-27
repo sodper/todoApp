@@ -26,6 +26,13 @@ namespace TodoApi.UnitTest.Services
                 Start = new DateTime(2017, 3, 28),
                 Due = new DateTime(2017, 4, 10)
             };
+        private Todo NON_EXISTING_TODO = new Todo
+            {
+                Id = 5,
+                Description = "Todo5",
+                Start = new DateTime(2017, 3, 28),
+                Due = new DateTime(2017, 4, 10)
+            };
 
         public TodoServiceTest()
         {
@@ -102,6 +109,16 @@ namespace TodoApi.UnitTest.Services
             var service = new TodoService(mockDb.Object);
 
             service.Update(EXISTING_TODO).Should().BeTrue();
+        }
+
+        [Fact]
+        public void Update_NonExistingTodo_ReturnsFalse()
+        {
+            var mockDb = new Mock<IDatabase>();
+            mockDb.Setup(db => db.Update(NON_EXISTING_TODO)).Returns(false);
+            var service = new TodoService(mockDb.Object);
+
+            service.Update(NON_EXISTING_TODO).Should().BeFalse();
         }
     }
 }
