@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
+using LiteDB;
+using Microsoft.AspNetCore.Hosting;
 using TodoApi.Models;
 
 namespace TodoApi.Services
 {
-    public class TodoService : ITodoService
+    class Database : IDatabase
     {
-        private IDatabase _db;
+        private readonly string _dbPath;
 
-        public TodoService(IDatabase db)
+        public Database(IHostingEnvironment env)
         {
-            _db = db;
+            _dbPath = $"{env.ContentRootPath}\\Data.db";
         }
+
         public void Delete(int id)
         {
             throw new NotImplementedException();
@@ -19,7 +22,11 @@ namespace TodoApi.Services
 
         public Todo Get(string id)
         {
-            return _db.Get(id);
+            using(var db = new LiteDatabase(_dbPath))
+            {
+                var collection = db.GetCollection<Todo>("todos");
+                return collection.FindById(new ObjectId(id));
+            }
         }
 
         public List<Todo> GetAll()

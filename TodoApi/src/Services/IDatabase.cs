@@ -3,7 +3,7 @@ using TodoApi.Models;
 
 namespace TodoApi.Services
 {
-    public interface ITodoService
+    public interface IDatabase
     {
         List<Todo> GetAll();
         Todo Get(string id);
