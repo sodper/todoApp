@@ -7,7 +7,7 @@
         {
             "taskName": "build",
             "args": [
-                "${workspaceRoot}/TodoApi/TodoApi.csproj"
+                "${workspaceRoot}/TodoApi/src/TodoApi.csproj"
             ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
