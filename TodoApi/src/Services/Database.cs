@@ -16,7 +16,7 @@ namespace TodoApi.Services
             _dbPath = $"{env.ContentRootPath}\\Data.db";
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             throw new NotImplementedException();
         }

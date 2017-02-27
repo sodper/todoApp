@@ -12,7 +12,7 @@ namespace TodoApi.Services
         {
             _db = db;
         }
-        public void Delete(int id)
+        public void Delete(string id)
         {
             throw new NotImplementedException();
         }

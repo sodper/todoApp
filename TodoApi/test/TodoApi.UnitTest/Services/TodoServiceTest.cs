@@ -72,5 +72,16 @@ namespace TodoApi.UnitTest.Services
             service.GetAll().Should().HaveSameCount(todoList);
             service.GetAll().Should().Contain(todoList);
         }
+
+        [Fact]
+        public void Delete()
+        {
+            var mockDb = new Mock<IDatabase>();
+            var service = new TodoService(mockDb.Object);
+
+            service.Delete(EXISTING_ID);
+
+            mockDb.Verify(db => db.Delete(EXISTING_ID));
+        }
     }
 }
