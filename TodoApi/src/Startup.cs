@@ -39,6 +39,7 @@ namespace TodoApi
                     });
             
             services.AddScoped<ITodoService, TodoService>();
+            services.AddScoped<IDatabase, Database>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
