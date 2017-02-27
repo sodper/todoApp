@@ -34,7 +34,7 @@ namespace TodoApi.Services
 
         public bool Update(Todo todo)
         {
-            throw new NotImplementedException();
+            return _db.Update(todo);
         }
     }
 }

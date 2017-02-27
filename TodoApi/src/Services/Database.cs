@@ -56,9 +56,13 @@ namespace TodoApi.Services
             };
         }
 
-        public void Update(Todo todo)
+        public bool Update(Todo todo)
         {
-            throw new NotImplementedException();
+            using(var db = new LiteDatabase(_dbPath))
+            {
+                var collection = db.GetCollection<Todo>("todos");
+                return collection.Update(todo);
+            };
         }
     }
 }
