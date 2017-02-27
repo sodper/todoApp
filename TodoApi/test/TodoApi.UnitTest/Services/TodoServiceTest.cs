@@ -83,5 +83,16 @@ namespace TodoApi.UnitTest.Services
 
             mockDb.Verify(db => db.Delete(EXISTING_ID));
         }
+
+        [Fact]
+        public void Save_ReturnsId()
+        {
+            var mockDb = new Mock<IDatabase>();
+            mockDb.Setup(db => db.Save(EXISTING_TODO)).Returns(EXISTING_ID);
+            var service = new TodoService(mockDb.Object);
+
+            service.Save(EXISTING_TODO).Should().Match(EXISTING_ID);
+
+        }
     }
 }

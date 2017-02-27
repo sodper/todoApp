@@ -27,7 +27,7 @@ namespace TodoApi.Services
             return _db.GetAll();
         }
 
-        public int Save(Todo todo)
+        public string Save(Todo todo)
         {
             throw new NotImplementedException();
         }
