@@ -43,9 +43,17 @@ namespace TodoApi.Services
             }
         }
 
-        public int Save(Todo todo)
+        public string Save(Todo todo)
         {
-            throw new NotImplementedException();
+            using(var db = new LiteDatabase(_dbPath))
+            {
+                var collection = db.GetCollection<Todo>("todos");
+                var id = collection.Insert(todo);
+
+                collection.EnsureIndex(x => x.Id);
+
+                return id.ToString();
+            };
         }
 
         public void Update(Todo todo)

@@ -92,7 +92,6 @@ namespace TodoApi.UnitTest.Services
             var service = new TodoService(mockDb.Object);
 
             service.Save(EXISTING_TODO).Should().Match(EXISTING_ID);
-
         }
     }
 }

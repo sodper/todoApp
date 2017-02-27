@@ -29,7 +29,7 @@ namespace TodoApi.Services
 
         public string Save(Todo todo)
         {
-            throw new NotImplementedException();
+            return _db.Save(todo);
         }
 
         public void Update(Todo todo)
