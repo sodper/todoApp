@@ -14,7 +14,7 @@ namespace TodoApi.Services
         }
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            _db.Delete(id);
         }
 
         public Todo Get(string id)

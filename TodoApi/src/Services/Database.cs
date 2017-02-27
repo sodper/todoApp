@@ -18,7 +18,11 @@ namespace TodoApi.Services
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            using(var db = new LiteDatabase(_dbPath))
+            {
+                var collection = db.GetCollection<Todo>("todos");
+                collection.Delete(new ObjectId(id));
+            }
         }
 
         public Todo Get(string id)
