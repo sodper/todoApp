@@ -19,6 +19,13 @@ namespace TodoApi.UnitTest.Services
                 Start = new DateTime(2017, 2, 28),
                 Due = new DateTime(2017, 3, 10)
             };
+        private Todo EXISTING_TODO2 = new Todo
+            {
+                Id = 2,
+                Description = "Todo2",
+                Start = new DateTime(2017, 3, 28),
+                Due = new DateTime(2017, 4, 10)
+            };
 
         public TodoServiceTest()
         {
@@ -52,6 +59,18 @@ namespace TodoApi.UnitTest.Services
             var service = new TodoService(mockDb.Object);
 
             service.GetAll().Should().BeEmpty();
+        }
+
+        [Fact]
+        public void GetAll_ExistingTodos()
+        {
+            var mockDb = new Mock<IDatabase>();
+            var todoList = new List<Todo>{ EXISTING_TODO, EXISTING_TODO2 };
+            mockDb.Setup(db => db.GetAll()).Returns(todoList);        
+            var service = new TodoService(mockDb.Object);
+
+            service.GetAll().Should().HaveSameCount(todoList);
+            service.GetAll().Should().Contain(todoList);
         }
     }
 }
